@@ -1,0 +1,110 @@
+# ======================================
+# Python
+# ======================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Archivos compilados
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.manifest
+
+# Configuración de entorno virtual
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# Archivos de log
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Configuración de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de control de versiones no deseados
+*.swp
+*.bak
+*.orig
+
+# Archivos de salida o dumps
+*.out
+*.pid
+*.seed
+
+# Archivos de test
+htmlcov/
+.tox/
+.coverage
+coverage.xml
+.cache
+.pytest_cache/
+
+# Reportes de tests
+junit*.xml
+
+# Configuración personal de VS Code
+.vscode/
+
+# Archivos de configuración de entorno
+.env
+.env.*
+
+# Archivos de base de datos locales
+*.sqlite3
+*.db
+
+# Claves o archivos sensibles
+*.pem
+*.key
+*.crt
+*.pfx
+
+# Configuración del sistema operativo
+Icon?
+ehthumbs.db
+
+# Archivos de lock
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de compilación de C/C++
+*.o
+*.a
+*.dylib
+*.dll
+
+# Archivos temporales de Windows
+$RECYCLE.BIN/
+
+# Archivos específicos de GitHub Desktop
+*.sublime-workspace
+*.sublime-project
+
+# Archivos generados por IDEs
+.idea/
+*.code-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Backups
+*~
+
+# Archivos de dependencia opcionales
+Pipfile.lock
+poetry.lock
