@@ -1,16 +1,13 @@
-
----
-
-````markdown
 # 🧱 Proyecto: Blockchain en Python / Blockchain in Python
-
-> 🇪🇸 Este documento está disponible en [English](#blockchain-in-python).
+````markdown
+>  This document is also available in [English](#blockchain-in-python). 
 >
-> 🇬🇧 This document is also available in [Español](#proyecto-blockchain-en-python).
+>  Este documento está disponible en [Español](#blockchain-en-python).
+````
 
 ---
 
-# 🧱 Proyecto: Blockchain en Python
+# 🧱 Blockchain en Python
 
 ## 📄 Descripción
 
@@ -177,7 +174,3 @@ The program:
 ## 📄 License
 
 This project is under the MIT license.
-
-```
-
----
