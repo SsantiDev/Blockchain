@@ -1,8 +1,8 @@
 # 🧱 Proyecto: Blockchain en Python / Blockchain in Python
 ````markdown
->  This document is also available in [English](#blockchain-in-python). 
+>  This document is also available in [English](#-blockchain-in-python). 
 >
->  Este documento está disponible en [Español](#blockchain-en-python).
+>  Este documento está disponible en [Español](#-blockchain-en-python).
 ````
 
 ---
