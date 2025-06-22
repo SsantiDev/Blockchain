@@ -91,4 +91,40 @@ class MetricsCollector:
             
             if len(self._metrics) > self._max_history:
                 self._metrics = self._metrics[-self._max_history:]  # Keep only the last max_history metrics
+                
+                
+    def get_stats(self, metric_name: str) -> Dict[str, Any]:
+        """
+        Get statistics for a specific metric.
+        Args:
+            metric_name (str): The name of the metric to get statistics for.
+        Returns:
+            Dict[str, Any]: A dictionary containing the statistics for the metric.
+        """
+        if metric_name not in self._aggregated:
+            return{}
+        
+        agg = self._aggregated[metric_name]
+        recent = list(agg.recent_values)
+        
+        stats ={
+            "count": agg.count,
+            "total": agg.total,
+            "average": agg.avg,
+            "min": agg.min,
+            "max": agg.max,
+        }
+        
+        if recent:
+            stats.update({
+                "median": statistics.median(recent),
+                "std_dev": statistics.stdev(recent) if len(recent) > 1 else 0,
+                "recent_avg": sum(recent) / len(recent),
+                "p95": statistics.quantiles(recent, n=20)[18] if len(recent) >= 20 else None,
+            }) 
+            
+        return stats
+    
+    
+    
 
