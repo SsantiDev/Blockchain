@@ -126,5 +126,97 @@ class MetricsCollector:
         return stats
     
     
+    def get_blockchain_reports(self) -> Dict[str, Any]:
+        """
+        Get a report of the blockchain-specific metrics.
+        
+        Returns:
+            Dict[str, Any]: A dictionary containing the blockchain metrics.
+        """
+        return {
+            "mining": self.get_stats("mining_time"),
+            "validation": self.get_stats("validation_time"),
+            "nonce_iterations": self.get_stats("nonce_iterations"),
+            "difficulty_adjustment": self.get_stats("difficulty_adjustment"),
+            "block_creation": self.get_stats("block_creation_time"),
+            "chain_validation": self.get_stats("chain_validation_time"),
+            "attack_simulation": self.get_stats("attack_simulation_time"),
+            "timestamp": datetime.now().isoformat(),
+            "total_metrics": len(self._metrics),
+        }
+        
+    def export_metrics(self, filename: str = None) -> str:
+        """
+        Export the collected metrics to a JSON string or file.
+        
+        Args:
+            filename (str): Optional filename to save the metrics to. If None, returns JSON string.
+        
+        Returns:
+            str: JSON string containing the metrics data.
+            If a filename is provided, the data is saved to that file instead.
+        """
+        data = {
+            "report": self.get_blockchain_reports(),
+            "raw_metrics": [
+                {
+                    "name": m.name,
+                    "value": m.value,
+                    "timestamp": m.timestamp.isoformat(),
+                    "category": m.category,
+                    "metadata": m.metadata
+                }
+                for m in self._metrics[-1000:]
+            ]}
+        
+        json_data = json.dumps(data, indent=2, ensure_ascii=False)
+        
+        if filename:
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(json_data)
+                
+        return json_data
+    
+    
+metrics = MetricsCollector() # This is a global instance of the MetricsCollector for use in the blockchain application.
+
+#decorators for metrics specific to the blockchain application
+
+def measure_mining_time(func: Callable) -> Callable:
+    """
+    Decorator to measure the mining time of a block.
+    
+    Args:
+        func (Callable): The function to decorate.
+        
+    Returns:
+        Callable: The decorated function that measures mining time.
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        duration = time.time() - start_time
+        
+        metadata = {}
+        if hasattr(result, '__dict__'):
+            if hasattr(result, 'difficulty'):
+                metadata['difficulty'] = getattr(result, 'difficulty', None)
+            if hasattr(result, 'nonce'):
+                metadata['nonce'] = getattr(result, 'nonce', None)
+                
+        metrics.add_metric(
+            "mining_time",
+            duration,
+            category="mining",
+            function=func.__name__,
+            **metadata
+        )
+         
+        return result
+    return wrapper
+    
+    
+    
     
 
