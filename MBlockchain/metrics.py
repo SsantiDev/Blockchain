@@ -253,7 +253,51 @@ def measure_validation_time(func: Callable) -> Callable:
         return result
     return wrapper
     
+def count_nonce_iterations(func: Callable) -> Callable:
+    """
+    Decorator to count the number of nonce iterations during mining.
     
+    Args:
+        func (Callable): The function to decorate.
+        
+    Returns:
+        Callable: The decorated function that counts nonce iterations.
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # hook to the nonce iterations
+        original_nonce = 0
+        if len(args) > 0 and hasattr(args[0], 'nonce'):
+            original_nonce = args[0].nonce
+            
+        result = func(*args, **kwargs)
+        
+        final_nonce = 0
+        if hasattr(result, 'nonce'):
+            final_nonce = result.nonce
+        elif len(args) > 0 and hasattr(args[0], 'nonce'):
+            final_nonce = args[0].nonce
+        
+        iterations = final_nonce - original_nonce 
+        
+        metadata = {
+            'final_nonce': final_nonce,
+            'original_nonce': original_nonce,
+            'function': func.__name__,
+        }
+        
+        if hasattr(result, 'difficulty'):
+            metadata['difficulty'] = result.difficulty 
+            
+        metrics.add_metric(
+            "nonce_iterations",
+            iterations,
+            category="mining",
+            **metadata
+        )
+        
+        return result
+    return wrapper
     
     
 
