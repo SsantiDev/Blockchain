@@ -215,6 +215,43 @@ def measure_mining_time(func: Callable) -> Callable:
          
         return result
     return wrapper
+
+def measure_validation_time(func: Callable) -> Callable:
+    """
+    Decorator to measure the validation time of a block.
+    
+    Args:
+        func (Callable): The function to decorate.
+        
+    Returns:
+        Callable: The decorated function that measures validation time.
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        duration = time.time() - start_time
+        
+        metadata = {
+            'validation_resutl': bool(result),
+            'function': func.__name__
+        }
+        
+        if args: 
+            if hasattr(args[0], '__len__'): 
+                metadata['chain_length'] = len(args[0])
+            elif hasattr(args[0], 'index'):
+                metadata['block_index'] = getattr(args[0], 'index', None)
+                
+                
+        metrics.add_metric(
+            "validation_time",
+            duration,
+            category="validation",
+            **metadata
+        )        
+        return result
+    return wrapper
     
     
     
