@@ -1,176 +1,56 @@
-# 🧱 Proyecto: Blockchain en Python / Blockchain in Python
-````markdown
->  This document is also available in [English](#-blockchain-in-python). 
->
->  Este documento está disponible en [Español](#-blockchain-en-python).
-````
+# 🏛️ NotaryChain: Inmutable Digital Notary
 
----
+**NotaryChain** is a commercial-grade blockchain-based system designed for document authentication and digital evidence preservation. Built with **Clean Architecture** and **SOLID** principles, it provides a robust, decentralized, and tamper-proof ledger for any digital asset.
 
-# 🧱 Blockchain en Python
+## 🌟 Key Features
+- **Premium Web Interface:** Modern, high-end dashboard with Dark/Light mode support.
+- **Immutable Evidence:** Secure document fingerprints (SHA-256) stored on a private blockchain.
+- **Digital Certificates:** Automatic generation of PDF authenticity certificates with verification QR codes.
+- **Digital Identity:** SECP256K1 (ECDSA) signatures ensure non-repudiation and proof of ownership.
+- **Clean Architecture:** Strict separation of concerns (Domain, Application, Infrastructure, API).
+- **RESTful API:** Modern FastAPI interface for easy integration with web and mobile clients.
 
-## 📄 Descripción
+## 🏗️ Technical Architecture
+The project follows **Clean Architecture** patterns to ensure maximum testability and maintainability:
 
-Este es un proyecto educativo que implementa una **blockchain desde cero** en Python. El objetivo es comprender cómo funciona la estructura, creación y validación de bloques, así como la minería básica basada en prueba de trabajo (Proof of Work).
+- **Domain Layer:** Pure business logic (Blocks, Transactions, Blockchain).
+- **Application Layer:** Use cases coordination (Notarization, Verification).
+- **Infrastructure Layer:** Cryptography (ECDSA) and Persistence (JSON/Repository Pattern).
+- **Interface Layer:** FastAPI controllers and a Premium Vanilla JS Frontend.
 
-## 🚀 Características
+## 🚀 Getting Started
 
-- Creación de bloques con minería basada en dificultad.
-- Estructura de cadena enlazada mediante hashes SHA-256.
-- Validación de integridad de la cadena.
-- Simulación de ataques a la blockchain.
-- Gestión de transacciones simuladas.
-- Visualización de la cadena de bloques completa.
-- Proyecto estructurado y modular.
+### 1. Prerequisites
+- Python 3.10+
+- Node.js (Optional, for advanced frontend dev)
 
-## 🛠️ Tecnologías y Herramientas
-
-- **Lenguaje:** Python 3.13+
-- **Control de versiones:** Git + GitHub
-- **Editor:** Visual Studio Code
-
-## 📦 Estructura del Proyecto
-
-```text
-MBlockchain/
-│
-├── block.py          # Definición y minería de un bloque
-├── blockchain.py     # Lógica de la blockchain
-├── utils.py          # Utilidades para hashing y validación
-├── main.py           # Punto de entrada del programa
-├── .gitignore        # Archivos ignorados por Git
-├── README.md         # Documentación
-````
-
-## ⚙️ Instalación
-
+### 2. Installation
 ```bash
-git clone https://github.com/SsantiDev/Blockchain
-cd MBlockchain
-```
+# Clone the repository
+git clone https://github.com/SsantiDev/Blockchain.git
+cd Blockchain
 
-(Opcional) Crear entorno virtual:
-
-```bash
-python -m venv venv
-# Linux/Mac
+# Setup Virtual Environment
+python3 -m venv venv
 source venv/bin/activate
-# Windows
-venv\Scripts\activate
+pip install -r requirements.txt # Or install fastapi uvicorn cryptography python-multipart
 ```
 
-## ▶️ Ejecución
+### 3. Running the System
+To run the full commercial demo, you need two terminals:
 
+**Terminal 1: Backend API**
 ```bash
-python main.py
+python run_api.py
 ```
+*API available at `http://localhost:8001`*
 
-El programa:
-
-* Inicializa la blockchain.
-* Agrega bloques con transacciones simuladas.
-* Muestra la cadena completa.
-* Simula un ataque y valida la integridad.
-
-## 🧩 Mejoras Futuras
-
-* Transacciones formales con múltiples campos.
-* Red de nodos distribuidos.
-* Persistencia en base de datos.
-* API REST o interfaz gráfica.
-
-## 🤝 Contribuciones
-
-1. Haz un fork.
-2. Crea una rama (`git checkout -b feature-nueva`).
-3. Realiza tus cambios.
-4. Abre un Pull Request.
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT.
-
----
-
-# 🧱 Blockchain in Python
-
-## 📄 Description
-
-This is an educational project that implements a **blockchain from scratch** in Python. The goal is to understand how block creation, structure, validation, and basic Proof of Work (PoW) mining work.
-
-## 🚀 Features
-
-* Block creation with difficulty-based mining.
-* Chained structure using SHA-256 hashes.
-* Full blockchain integrity validation.
-* Blockchain attack simulation.
-* Management of simulated transactions.
-* Full blockchain visualization.
-* Modular and structured project.
-
-## 🛠️ Technologies and Tools
-
-* **Language:** Python 3.13+
-* **Version control:** Git + GitHub
-* **Editor:** Visual Studio Code
-
-## 📦 Project Structure
-
-```text
-MBlockchain/
-│
-├── block.py          # Block definition and mining
-├── blockchain.py     # Blockchain logic
-├── utils.py          # Hashing and validation utilities
-├── main.py           # Program entry point
-├── .gitignore        # Files ignored by Git
-├── README.md         # Documentation
-```
-
-## ⚙️ Installation
-
+**Terminal 2: Frontend Web**
 ```bash
-git clone https://github.com/SsantiDev/Blockchain
-cd MBlockchain
+cd frontend
+python3 -m http.server 8888
 ```
-
-(Optional) Create virtual environment:
-
-```bash
-python -m venv venv
-# Linux/Mac
-source venv/bin/activate
-# Windows
-venv\Scripts\activate
-```
-
-## ▶️ Usage
-
-```bash
-python main.py
-```
-
-The program:
-
-* Initializes the blockchain.
-* Adds blocks with simulated transactions.
-* Displays the entire blockchain.
-* Simulates an attack and verifies chain integrity.
-
-## 🧩 Future Improvements
-
-* Formal transactions with multiple fields.
-* Distributed network of nodes.
-* Persistence in databases.
-* API REST or graphical interface.
-
-## 🤝 Contributions
-
-1. Fork the project.
-2. Create a branch (`git checkout -b new-feature`).
-3. Make your changes.
-4. Open a Pull Request.
+*Access the dashboard at `http://localhost:8888`*
 
 ## 📄 License
-
-This project is under the MIT license.
+This project is licensed under the MIT License.
