@@ -1,125 +1,218 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotaryChain | La Verdad Digital Inmutable</title>
-    <meta name="description" content="NotaryChain utiliza tecnología blockchain de vanguardia para garantizar la integridad y autenticidad de tus documentos.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Icons (Lucide) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- PDF & QR Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NotaryChain | La Verdad Digital Inmutable</title>
+  <meta name="description" content="NotaryChain utiliza tecnología blockchain para garantizar la integridad y autenticidad de tus documentos.">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Design System — orden de carga importa -->
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/pages/home.css">
+  <link rel="stylesheet" href="styles/pages/auth.css">
+  <link rel="stylesheet" href="styles/pages/dashboard.css">
+
+  <!-- Librerías externas (globales, deben cargarse antes que los módulos) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo">
-                <i data-lucide="shield-check"></i>
-                NotaryChain
-            </div>
-            
-            <nav>
-                <ul>
-                    <li><a href="#features">Características</a></li>
-                    <li><a href="#notarize">Notarizar</a></li>
-                    <li><a href="#verify">Verificar</a></li>
-                </ul>
-            </nav>
+  <!-- MODAL DE AUTENTICACIÓN ─────────────────────────────────────────── -->
+  <div class="modal-overlay modal-overlay--hidden" id="modal-overlay">
+    <div class="modal">
+      <button class="modal__close" id="modal-close" aria-label="Cerrar">
+        <i data-lucide="x"></i>
+      </button>
 
-            <button class="theme-toggle" id="theme-toggle">
-                <i data-lucide="moon" id="toggle-icon"></i>
-                <span id="toggle-text">Modo Oscuro</span>
-            </button>
+      <div class="auth-tabs">
+        <button class="auth-tab auth-tab--active" id="tab-login">Iniciar Sesión</button>
+        <button class="auth-tab" id="tab-register">Registrarse</button>
+      </div>
+
+      <!-- Formulario Login -->
+      <form id="form-login">
+        <h2 class="modal__title">Bienvenido</h2>
+        <p class="modal__subtitle">Accede a tu historial de notarizaciones.</p>
+        <div class="form__group">
+          <label class="form__label" for="login-email">Correo electrónico</label>
+          <input class="form__input" id="login-email" type="email" placeholder="tu@correo.com" required>
         </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Tu Verdad Digital, <br><span style="color: var(--accent-primary)">Inmutable.</span></h1>
-                <p>Protege tu propiedad intelectual, contratos y activos digitales con el sello de tiempo más seguro basado en blockchain.</p>
-                <button class="btn-primary" onclick="document.getElementById('notarize').scrollIntoView({behavior: 'smooth'})">
-                    Empezar a Notarizar
-                </button>
-            </div>
-        </section>
-
-        <section class="stats-bar">
-            <div class="container stats-container">
-                <div class="stat-item">
-                    <span id="stat-blocks">#104,328</span>
-                    <label>Bloques en Cadena</label>
-                </div>
-                <div class="stat-item">
-                    <span id="stat-txs">24.5k</span>
-                    <label>Documentos Asegurados</label>
-                </div>
-                <div class="stat-item">
-                    <span id="stat-nodes">152</span>
-                    <label>Nodos Distribuidos</label>
-                </div>
-            </div>
-        </section>
-
-        <section id="notarize" style="padding: 4rem 0;">
-            <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Notariza tus Archivos</h2>
-                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">Arrastra un archivo aquí para generar su huella digital y registrarla en la red.</p>
-                
-                <div class="drop-zone" id="drop-zone">
-                    <i data-lucide="upload-cloud"></i>
-                    <h3>Arrastra y suelta archivos</h3>
-                    <p>PDF, DOCX, IMG o ZIP (Máx. 50MB)</p>
-                    <input type="file" id="file-input" style="display: none;">
-                </div>
-            </div>
-        </section>
-
-        <section id="features" style="padding: 4rem 0; background-color: rgba(0,0,0,0.02);">
-            <div class="container">
-                <div class="features">
-                    <div class="card">
-                        <i data-lucide="lock" style="color: var(--accent-primary)"></i>
-                        <h3>Privacidad Total</h3>
-                        <p>Tus archivos nunca salen de tu navegador. Solo registramos el Hash SHA-256 inalterable.</p>
-                    </div>
-                    <div class="card">
-                        <i data-lucide="cpu" style="color: var(--accent-primary)"></i>
-                        <h3>Seguridad Militar</h3>
-                        <p>Utilizamos curvas elípticas SECP256K1, la misma tecnología que protege a Bitcoin.</p>
-                    </div>
-                    <div class="card">
-                        <i data-lucide="check-circle" style="color: var(--accent-primary)"></i>
-                        <h3>Verificación Pública</h3>
-                        <p>Cualquier tercero puede verificar la integridad de tus documentos en segundos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer style="padding: 4rem 0; border-top: 1px solid var(--border-color); text-align: center;">
-        <div class="container">
-            <p style="color: var(--text-secondary)">&copy; 2026 NotaryChain. Todos los derechos reservados.</p>
+        <div class="form__group">
+          <label class="form__label" for="login-password">Contraseña</label>
+          <input class="form__input" id="login-password" type="password" placeholder="••••••••" required>
         </div>
-    </footer>
+        <p class="form__error" id="login-error"></p>
+        <button class="btn btn--primary btn--full" type="submit" style="margin-top:0.5rem">Entrar</button>
+        <p class="form__switch">¿No tienes cuenta? <span class="form__switch-link" id="go-register">Regístrate</span></p>
+      </form>
 
-    <script src="app.js"></script>
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
+      <!-- Formulario Registro -->
+      <form id="form-register" style="display:none">
+        <h2 class="modal__title">Crear cuenta</h2>
+        <p class="modal__subtitle">Protege tus documentos con una identidad verificada.</p>
+        <div class="form__group">
+          <label class="form__label" for="reg-name">Nombre completo</label>
+          <input class="form__input" id="reg-name" type="text" placeholder="Juan García" required>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="reg-email">Correo electrónico</label>
+          <input class="form__input" id="reg-email" type="email" placeholder="tu@correo.com" required>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="reg-password">Contraseña</label>
+          <input class="form__input" id="reg-password" type="password" placeholder="Mínimo 8 caracteres" required minlength="8">
+        </div>
+        <p class="form__error" id="reg-error"></p>
+        <button class="btn btn--primary btn--full" type="submit" style="margin-top:0.5rem">Crear Cuenta</button>
+        <p class="form__switch">¿Ya tienes cuenta? <span class="form__switch-link" id="go-login">Inicia sesión</span></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- HEADER ─────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="header__logo">
+        <i data-lucide="shield-check"></i>
+        NotaryChain
+      </div>
+
+      <nav>
+        <ul class="header__nav">
+          <li><a class="header__nav-link" href="#features">Características</a></li>
+          <li><a class="header__nav-link" href="#notarize">Notarizar</a></li>
+          <li><a class="header__nav-link" href="#verify">Verificar</a></li>
+          <li><a class="header__nav-link" href="#section-dashboard" id="nav-dashboard" style="display:none">Mi Panel</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="btn btn--primary" id="btn-login">Iniciar Sesión</button>
+        <button class="btn btn--ghost"   id="btn-logout" style="display:none">Salir</button>
+        <button class="btn btn--outline" id="btn-theme">
+          <i data-lucide="moon" id="theme-icon"></i>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO ──────────────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero__title">
+          Tu Verdad Digital,<br>
+          <span class="hero__title-accent">Inmutable.</span>
+        </h1>
+        <p class="hero__subtitle">
+          Protege tu propiedad intelectual, contratos y activos digitales
+          con el sello de tiempo más seguro basado en blockchain.
+        </p>
+        <button class="btn btn--primary"
+          onclick="document.getElementById('notarize').scrollIntoView({behavior:'smooth'})">
+          Empezar a Notarizar
+        </button>
+      </div>
+    </section>
+
+    <!-- STATS ─────────────────────────────────────────────────────────── -->
+    <section class="stats-bar">
+      <div class="container stats-bar__inner">
+        <div>
+          <span class="stat__value" id="stat-blocks">#104,328</span>
+          <span class="stat__label">Bloques en Cadena</span>
+        </div>
+        <div>
+          <span class="stat__value" id="stat-txs">24.5k</span>
+          <span class="stat__label">Documentos Asegurados</span>
+        </div>
+        <div>
+          <span class="stat__value" id="stat-nodes">152</span>
+          <span class="stat__label">Nodos Distribuidos</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTARIZAR ─────────────────────────────────────────────────────── -->
+    <section id="notarize" class="section">
+      <div class="container">
+        <h2 class="section__title">Notariza tus Archivos</h2>
+        <p class="section__subtitle">
+          Arrastra un archivo aquí para generar su huella digital y registrarla en la red.
+        </p>
+        <div class="drop-zone" id="drop-zone">
+          <i data-lucide="upload-cloud" class="drop-zone__icon"></i>
+          <h3>Arrastra y suelta archivos</h3>
+          <p class="drop-zone__subtitle">PDF, DOCX, IMG o ZIP (Máx. 50MB)</p>
+          <input type="file" id="file-input" style="display:none">
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES ──────────────────────────────────────────────────────── -->
+    <section id="features" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title">¿Por qué NotaryChain?</h2>
+        <div class="features-grid">
+          <div class="card">
+            <i data-lucide="lock" class="card__icon"></i>
+            <h3 class="card__title">Privacidad Total</h3>
+            <p class="card__body">Tus archivos nunca salen de tu navegador. Solo registramos el Hash SHA-256 inalterable.</p>
+          </div>
+          <div class="card">
+            <i data-lucide="cpu" class="card__icon"></i>
+            <h3 class="card__title">Seguridad Militar</h3>
+            <p class="card__body">Utilizamos curvas elípticas SECP256K1, la misma tecnología que protege a Bitcoin.</p>
+          </div>
+          <div class="card">
+            <i data-lucide="check-circle" class="card__icon"></i>
+            <h3 class="card__title">Verificación Pública</h3>
+            <p class="card__body">Cualquier tercero puede verificar la integridad de tus documentos en segundos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD (oculto hasta login) ────────────────────────────────── -->
+    <section id="section-dashboard" class="dashboard" style="display:none">
+      <div class="container">
+        <div class="dashboard__header">
+          <div>
+            <h2 class="dashboard__title">Mis Notarizaciones</h2>
+            <p class="dashboard__greeting">Historial completo de tus registros en cadena.</p>
+          </div>
+        </div>
+        <div class="table-wrapper" id="dashboard-table-wrapper">
+          <p class="dashboard__empty">Cargando...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER ─────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 NotaryChain. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Módulo principal — defer implícito en type=module -->
+  <script type="module" src="js/main.js"></script>
+  <!-- Render inicial de iconos antes de que carguen los módulos -->
+  <script>lucide.createIcons();</script>
+
 </body>
 </html>

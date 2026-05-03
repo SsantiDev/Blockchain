@@ -1,0 +1,332 @@
+/*
+ * NotaryChain — Componentes
+ * BEM: .bloque__elemento--modificador
+ * Cada componente es autocontenido; no depende de contexto externo.
+ */
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  padding: 0.75rem 1.75rem;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+  color: #000;
+  box-shadow: 0 10px 20px -10px var(--accent-primary);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -10px var(--accent-primary);
+}
+
+.btn--ghost {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+.btn--outline {
+  background: none;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.btn--outline:hover {
+  border-color: var(--accent-primary);
+  box-shadow: var(--glow);
+}
+
+.btn--sm {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn--loading::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-5px);
+}
+
+.card__icon {
+  color: var(--accent-primary);
+}
+
+.card__title {
+  margin: var(--space-md) 0 var(--space-sm);
+  font-size: 1.5rem;
+}
+
+.card__body {
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   DROP ZONE
+   ============================================================ */
+.drop-zone {
+  margin: var(--space-2xl) auto;
+  max-width: 800px;
+  min-height: 300px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-glass);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  transition: all var(--transition);
+  cursor: pointer;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.drop-zone:hover,
+.drop-zone--active {
+  border-color: var(--accent-primary);
+  background-color: rgba(0, 255, 204, 0.02);
+}
+
+.drop-zone--success {
+  border-style: solid;
+  border-color: var(--accent-primary);
+}
+
+.drop-zone__icon {
+  color: var(--accent-primary);
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-xs);
+}
+
+.drop-zone__subtitle {
+  color: var(--text-secondary);
+}
+
+.drop-zone__actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   HASH DISPLAY
+   ============================================================ */
+.hash-display {
+  background: var(--bg-secondary);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+  color: var(--text-secondary);
+  margin: var(--space-sm) 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge--verified {
+  background: rgba(0, 255, 204, 0.1);
+  color: var(--accent-primary);
+}
+
+.badge--pending {
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--accent-secondary);
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  z-index: 300;
+  animation: fadeInUp 0.3s ease;
+  max-width: 360px;
+  font-weight: 500;
+}
+
+.toast--success { border-color: var(--accent-primary); }
+.toast--error   { border-color: var(--error); color: var(--error); }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 0.2s ease;
+}
+
+.modal-overlay--hidden {
+  display: none;
+}
+
+.modal {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition);
+}
+
+.modal__close:hover { color: var(--text-primary); }
+
+.modal__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: var(--space-xs);
+}
+
+.modal__subtitle {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.form__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form__input {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: var(--font-main);
+  transition: border-color var(--transition);
+  width: 100%;
+}
+
+.form__input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+.form__input::placeholder { color: var(--text-secondary); }
+
+.form__error {
+  color: var(--error);
+  font-size: 0.875rem;
+  min-height: 1.2em;
+}
+
+.form__switch {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-top: var(--space-sm);
+}
+
+.form__switch-link {
+  color: var(--accent-primary);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.form__switch-link:hover { text-decoration: underline; }
