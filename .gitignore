@@ -108,3 +108,8 @@ $RECYCLE.BIN/
 # Archivos de dependencia opcionales
 Pipfile.lock
 poetry.lock
+
+
+# md files
+*.md
+!PROJECT_PROGRESS.md
