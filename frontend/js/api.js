@@ -29,7 +29,7 @@ export const register = (body) =>
   });
 
 export const getMe = () =>
-  fetch(`${API_URL}/users/me`, { headers: authHeaders() });
+  fetch(`${API_URL}/auth/me`, { headers: authHeaders() });
 
 export const getMyNotarizations = () =>
   fetch(`${API_URL}/my-notarizations`, { headers: authHeaders() });
