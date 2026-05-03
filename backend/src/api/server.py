@@ -166,7 +166,8 @@ def get_user_history(
             "document_hash": t.document_hash,
             "metadata": t.metadata_json,
             "owner": t.owner_address,
-            "signature": t.signature
+            "signature": t.signature,
+            "block_index": t.block.index if t.block else 0
         } for t in history
     ]
 
