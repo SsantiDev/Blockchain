@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotaryChain | La Verdad Digital Inmutable</title>
+    <meta name="description" content="NotaryChain utiliza tecnología blockchain de vanguardia para garantizar la integridad y autenticidad de tus documentos.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- PDF & QR Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo">
+                <i data-lucide="shield-check"></i>
+                NotaryChain
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#features">Características</a></li>
+                    <li><a href="#notarize">Notarizar</a></li>
+                    <li><a href="#verify">Verificar</a></li>
+                </ul>
+            </nav>
+
+            <button class="theme-toggle" id="theme-toggle">
+                <i data-lucide="moon" id="toggle-icon"></i>
+                <span id="toggle-text">Modo Oscuro</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Tu Verdad Digital, <br><span style="color: var(--accent-primary)">Inmutable.</span></h1>
+                <p>Protege tu propiedad intelectual, contratos y activos digitales con el sello de tiempo más seguro basado en blockchain.</p>
+                <button class="btn-primary" onclick="document.getElementById('notarize').scrollIntoView({behavior: 'smooth'})">
+                    Empezar a Notarizar
+                </button>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="container stats-container">
+                <div class="stat-item">
+                    <span id="stat-blocks">#104,328</span>
+                    <label>Bloques en Cadena</label>
+                </div>
+                <div class="stat-item">
+                    <span id="stat-txs">24.5k</span>
+                    <label>Documentos Asegurados</label>
+                </div>
+                <div class="stat-item">
+                    <span id="stat-nodes">152</span>
+                    <label>Nodos Distribuidos</label>
+                </div>
+            </div>
+        </section>
+
+        <section id="notarize" style="padding: 4rem 0;">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Notariza tus Archivos</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 3rem;">Arrastra un archivo aquí para generar su huella digital y registrarla en la red.</p>
+                
+                <div class="drop-zone" id="drop-zone">
+                    <i data-lucide="upload-cloud"></i>
+                    <h3>Arrastra y suelta archivos</h3>
+                    <p>PDF, DOCX, IMG o ZIP (Máx. 50MB)</p>
+                    <input type="file" id="file-input" style="display: none;">
+                </div>
+            </div>
+        </section>
+
+        <section id="features" style="padding: 4rem 0; background-color: rgba(0,0,0,0.02);">
+            <div class="container">
+                <div class="features">
+                    <div class="card">
+                        <i data-lucide="lock" style="color: var(--accent-primary)"></i>
+                        <h3>Privacidad Total</h3>
+                        <p>Tus archivos nunca salen de tu navegador. Solo registramos el Hash SHA-256 inalterable.</p>
+                    </div>
+                    <div class="card">
+                        <i data-lucide="cpu" style="color: var(--accent-primary)"></i>
+                        <h3>Seguridad Militar</h3>
+                        <p>Utilizamos curvas elípticas SECP256K1, la misma tecnología que protege a Bitcoin.</p>
+                    </div>
+                    <div class="card">
+                        <i data-lucide="check-circle" style="color: var(--accent-primary)"></i>
+                        <h3>Verificación Pública</h3>
+                        <p>Cualquier tercero puede verificar la integridad de tus documentos en segundos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 4rem 0; border-top: 1px solid var(--border-color); text-align: center;">
+        <div class="container">
+            <p style="color: var(--text-secondary)">&copy; 2026 NotaryChain. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
